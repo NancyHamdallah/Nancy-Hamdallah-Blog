@@ -1,15 +1,15 @@
 import {Request, Response} from 'express';
 import User from '../models/userModel';
 
-export const createUser = async (req:Request, res: Response):Promise<void> =>{
+export async function createUser  (req:Request, res: Response, password: string):Promise<void> {
 // this way didn't work with form-data
     const name : string = req.body.name;
     const email : string = req.body.email;
-    const password : string = req.body.password;
+    const roleId : number = Number(req.body.roleId);
 
 //const {name, email, password} = req.body;
 try {
-const user = await User.create({name,email,password});
+const user = await User.create({name,email,password,roleId});
 res.status(201).json(user);
 }catch (err: any){
 res.status(500).json({message: err.message});

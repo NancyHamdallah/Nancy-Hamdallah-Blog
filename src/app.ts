@@ -5,16 +5,21 @@ import postRoutes from './routes/postRoutes';
 import categoryRoutes from './routes/categoryRoutes';
 import commentRoutes from './routes/commentRoutes';
 import bodyParser from 'body-parser'
+import auth from './routes/auth'
 //create express app
 const app:Application = express();
 
 //Middleware
+
 app.use(express.json());
 app.use(bodyParser.urlencoded({
     extended: true
  }));
+ 
+ 
 
 //Routes
+app.use('/auth',auth)
 app.use('/api/users',userRoutes);
 app.use('/api/posts',postRoutes);
 app.use('/api/posts',commentRoutes);

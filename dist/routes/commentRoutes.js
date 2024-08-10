@@ -1,0 +1,11 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+const express_1 = require("express");
+const commentController_1 = require("../controllers/commentController");
+const router = (0, express_1.Router)({ mergeParams: true });
+router.post('/:postId/comments', commentController_1.createComment);
+router.get('/:postId/comments', commentController_1.getComments);
+router.get('/:id', commentController_1.getComment);
+router.put('/:id', commentController_1.updateComment);
+router.delete('/:id', commentController_1.deleteComment);
+exports.default = router;

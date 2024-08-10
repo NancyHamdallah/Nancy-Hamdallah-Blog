@@ -1,17 +1,28 @@
 import {Request, Response} from 'express';
 import User from '../models/userModel';
 import Post from '../models/postModel';
+import PostCategory from '../models/PostCategoryModel';
+import Category from '../models/categoryModel';
 
 export const createPost = async (req:Request, res: Response):Promise<void> =>{
 // this way didn't work with form-data
     const title : string = req.body.title;
     const body : string = req.body.body;
     const userId : number = Number(req.body.userId);
-
+    if (!(title && body && userId))
+        res.status(400).send("Missing info");
 
 //const {name, email, password} = req.body;
 try {
-const post = await Post.create({title,body,userId});
+    const post = await Post.create(
+        {
+            title,
+            body,
+            userId,
+
+        }
+
+    );
 res.status(201).json(post);
 }catch (err: any){
 res.status(500).json({message: err.message});
@@ -30,7 +41,11 @@ res.status(500).json({message: err.message});
 
 export const getPost = async (req:Request, res: Response) : Promise<void> => {
 try{
-const post = await Post.findByPk(req.params.id);
+    const post = await Post.findByPk(req.params.id, {
+        include: [
+            { model: Category, through: { attributes: [] } },
+        ],
+    });
 if(post) {
 res.status(200).json(post);
 }else {

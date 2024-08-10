@@ -7,17 +7,15 @@ interface CategoryAttributes {
 
 	id: number ;
     categoryType : string;
-    postId: number
 }
 
-//Define an interface for Post Creation attributes (optional id)
+//Define an interface for Category Creation attributes (optional id)
 interface CategoryCreationAttributes extends Optional<CategoryAttributes, 'id'> {}
 
 //Define a class that extends the Sequelize Model Class
 class Category extends Model<CategoryAttributes, CategoryCreationAttributes> implements CategoryAttributes{
     public id!: number;
     public categoryType !: string;
-    public postId!: number;
     
 }
 
@@ -33,10 +31,8 @@ categoryType : {
             type: DataTypes.STRING(128),
             allowNull: false,
             
-        },
-postId : {
-            type: DataTypes.INTEGER.UNSIGNED
-}
+        }
+
 
 },
 {
@@ -51,7 +47,6 @@ sequelize,// passing the 'sequelize' instance is required
 
 
 // Define association between Post and Category models
-Post.belongsToMany(Category, { through: PostCategory, foreignKey: 'postId' });
-Category.belongsToMany(Post, { through: PostCategory, foreignKey: 'categoryId' });
 
+Category.hasMany(PostCategory, { foreignKey: 'categoryId'} );
 export default Category;

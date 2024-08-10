@@ -3,6 +3,7 @@ import User from './userModel'
 import sequelize from '../config/database' ;
 import Category from './categoryModel';
 import PostCategory from './PostCategoryModel';
+import Comment from './commentModel'
 //Define an interface for Post attributes 
 interface PostAttributes {
 
@@ -60,5 +61,9 @@ sequelize,// passing the 'sequelize' instance is required
 // Define association between User and Post models
 User.hasMany(Post, { foreignKey: 'userId' });
 Post.belongsTo(User, { foreignKey: 'userId' });
+Post.hasMany(PostCategory, { foreignKey: 'postId'} );
+
+Post.belongsToMany(Category, { through: PostCategory, foreignKey: 'postId' });
+Category.belongsToMany(Post, { through: PostCategory, foreignKey: 'categoryId' });
 
 export default Post;

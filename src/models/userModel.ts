@@ -3,10 +3,11 @@ import sequelize from '../config/database' ;
 //Define an interface for User attributes 
 interface UserAttributes {
 
-	id: number ;
+id: number ;
 name : string;
 email : string;
 password : string ;
+roleId : number;
 }
 
 //Define aninterface for User Creation attributes (optional id)
@@ -18,6 +19,7 @@ public id!: number;
 public name !: string;
 public email !: string;
 public password!: string ;
+public roleId !: number;
 }
 
 //Initialize the User model
@@ -41,6 +43,10 @@ password: {
             type: DataTypes.STRING,
             allowNull: false,
         },
+roleId : {
+            type: DataTypes.INTEGER.UNSIGNED
+            
+}
 },
 {
 tableName : 'users',

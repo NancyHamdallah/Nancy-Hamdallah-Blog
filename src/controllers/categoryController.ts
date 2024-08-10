@@ -11,7 +11,7 @@ export const createCategory = async (req:Request, res: Response):Promise<void> =
 
 //const {name, email, password} = req.body;
 try {
-const category = await Category.create({categoryType,postId});
+const category = await Category.create({categoryType});
 res.status(201).json(category);
 }catch (err: any){
 res.status(500).json({message: err.message});
@@ -20,7 +20,7 @@ res.status(500).json({message: err.message});
 
 export const getCategories = async(req:Request, res: Response): Promise<void> => {
 try{
-//const categories = await Category.findAll();
+/* //const categories = await Category.findAll();
 //const category = await Category.findByPk(req.params.postId, {include: [Post]} );
 const postId = Number(req.params.postId);
 // Fetch categories for the specific post ID
@@ -28,7 +28,7 @@ const categories = await Category.findAll({
     where: { postId },
     include: [Post], // This will include post details if needed
   });
-res.status(200).json(categories);
+res.status(200).json(categories); */
 } catch (err: any) {
 res.status(500).json({message: err.message});
 }
